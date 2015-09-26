@@ -1,0 +1,6 @@
+system packages:
+- python-dev (python-devel in redhat)
+
+python packages:
+- scapy
+- setproctitle
