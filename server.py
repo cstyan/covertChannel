@@ -4,8 +4,8 @@ maxPort = 65535
 
 # takes in a packet that passes our sniff filter
 def parsePacket(packet):
-  # sport = packet.sport
-  difference = maxPort - packet
+  sport = packet.sport
+  difference = maxPort - sport
   binVal = bin(difference)[2:]
   # print binVal
   binLen = len(binVal)
