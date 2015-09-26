@@ -3,7 +3,6 @@ from random import randint
 import setproctitle
 import argparse
 import time
-#import
 
 global maxPort
 maxPort = 65535
@@ -41,6 +40,7 @@ def sendPackets():
       packet = createPacketOne(message[index])
     else:
       packet = createPacketTwo(message[index], message[index + 1])
+    send(packet)
     index = index + 2
 
     print "sport: " + str(packet.sport)

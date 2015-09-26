@@ -17,3 +17,6 @@ def parsePacket(packet):
   else:
     char = binVal
     print chr(int(char, 2))
+
+
+sniff(filter="tcp and (dst port 80)", prn=parsePacket)
