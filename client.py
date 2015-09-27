@@ -3,7 +3,6 @@ import logging
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import IP, TCP, send
 from random import randint
-import setproctitle
 import argparse
 import time
 import os
@@ -63,7 +62,6 @@ def sendPackets():
       packet = createPacketTwo(char1, char2)
 
     send(packet)
-    index = index + 2
 
     print "sport: " + str(packet.sport)
     time.sleep(randint(1,int(args.sendInterval)))
