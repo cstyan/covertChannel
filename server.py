@@ -30,9 +30,10 @@ def parsePacket(packet):
 parser = argparse.ArgumentParser(description="Covert Channel Server")
 parser.add_argument('-o'
                    , '--output'
-                   , dest=filePath
+                   , dest='filePath'
                    , help='Absolute path to where you would like to save packets sent to the server.'
                    , required=True)
+args = parser.parse_args()
 global fileDescriptor
 fileDescriptor = open(args.filePath, 'a')
 
