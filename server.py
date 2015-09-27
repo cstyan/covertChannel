@@ -16,13 +16,12 @@ def parsePacket(packet):
     binChar1 = binVal[0:binLen - 8]
     char1 = chr(int(binChar1, 2))
     char2 = chr(int(binChar2, 2))
-    print char1,
-    print char2,
+    print "Received: " + char1 + char2
     fileDescriptor.write(char1)
     fileDescriptor.write(char2)
   else:
-    char = chr(int(char, 2))
-    print char,
+    char = chr(int(binVal, 2))
+    print "Received: " + char
     fileDescriptor.write(char)
 
 
