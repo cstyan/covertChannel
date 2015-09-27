@@ -8,7 +8,7 @@ maxPort = 65535
 
 # takes in a packet that passes our sniff filter
 def parsePacket(packet):
-  global fileDescriptor
+  fileDescriptor = open(args.filePath, 'a')
   sport = packet.sport
   difference = maxPort - sport
   binVal = bin(difference)[2:]
@@ -27,6 +27,8 @@ def parsePacket(packet):
     print "Received: " + char
     fileDescriptor.write(char)
 
+  fileDescriptor.close()
+
 
 # start of execution
 parser = argparse.ArgumentParser(description="Covert Channel Server")
@@ -36,7 +38,5 @@ parser.add_argument('-o'
                    , help='Absolute path to where you would like to save packets sent to the server.'
                    , required=True)
 args = parser.parse_args()
-global fileDescriptor
-fileDescriptor = open(args.filePath, 'a')
 
 sniff(filter="tcp and (dst port 80)", prn=parsePacket)
