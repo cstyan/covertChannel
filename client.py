@@ -59,7 +59,7 @@ def sendPackets():
     else:
       char1 = readOneByte(fileDescriptor)
       char2 = readOneByte(fileDescriptor)
-      packet = createPacketTwo(message[index], message[index + 1])
+      packet = createPacketTwo(char1, char2)
 
     send(packet)
     index = index + 2
