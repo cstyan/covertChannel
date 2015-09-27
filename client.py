@@ -1,3 +1,6 @@
+import logging
+# don't output warnings from scapy, kthx
+logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
 from scapy.all import IP, TCP
 from random import randint
 import setproctitle
