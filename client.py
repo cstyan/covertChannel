@@ -1,12 +1,13 @@
 import logging
 # don't output warnings from scapy, kthx
 logging.getLogger("scapy.runtime").setLevel(logging.ERROR)
-from scapy.all import IP, TCP
+from scapy.all import IP, TCP, send
 from random import randint
 import setproctitle
 import argparse
 import time
 import os
+
 
 global maxPort
 global lastPosition
