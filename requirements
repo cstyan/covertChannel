@@ -3,4 +3,3 @@ system packages:
 
 python packages:
 - scapy
-- setproctitle
